@@ -19,6 +19,24 @@ async function updateContributors() {
 
     fs.writeFileSync(contributorsFile, JSON.stringify(updatedContributors, null, 2));
     console.log('Contributors file updated.');
+
+    // Add the commit and push logic
+    const { execSync } = require('child_process');
+
+    // Configure Git user and email for the commit
+    execSync('git config --global user.name "GitHub Action"');
+    execSync('git config --global user.email "action@github.com"');
+
+    // Stage the changes
+    execSync('git add .');
+
+    // Create the commit
+    execSync(`git commit -m "Update contributors.json [skip ci]"`);
+
+    // Push the changes to the repository
+    execSync(`git push origin ${branch}`);
+
+    console.log('Changes committed and pushed to the repository.');
   } catch (error) {
     console.error('Error updating contributors:', error);
   }
