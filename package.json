@@ -1,0 +1,10 @@
+{
+  "name": "github-contributors-action",
+  "version": "1.0.0",
+  "scripts": {
+    "update-contributors": "node update-contributors.js"
+  },
+  "dependencies": {
+    "axios": "^0.21.4"
+  }
+}
