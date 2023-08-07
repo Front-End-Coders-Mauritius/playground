@@ -1,8 +1,8 @@
 const axios = require('axios');
 const fs = require('fs');
 
-const owner = 'YOUR_GITHUB_USERNAME';
-const repo = 'YOUR_REPOSITORY_NAME';
+const owner = 'Front-End-Coders-Mauritius';
+const repo = 'playground';
 
 const contributorsFile = 'contributors.json';
 
