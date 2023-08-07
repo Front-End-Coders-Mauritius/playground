@@ -10,7 +10,10 @@ const contributorsFile = 'contributors.json';
 async function updateContributors() {
   try {
     const response = await axios.get(`https://api.github.com/repos/${owner}/${repo}/contributors`);
-    const contributors = response.data.map(contributor => contributor.login);
+    const contributors = response.data.map(contributor => {
+      console.log(contributor);
+      return contributor.login; 
+    );
 
     let existingContributors = [];
 
