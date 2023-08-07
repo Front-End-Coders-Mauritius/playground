@@ -2,7 +2,7 @@ const axios = require('axios');
 const fs = require('fs');
 
 const owner = 'Front-End-Coders-Mauritius';
-const repo = 'playground';
+const repo = 'frontendmu-astro';
 const branch = 'main'; // Replace with the default branch of your repository
 
 const contributorsFile = 'contributors.json';
