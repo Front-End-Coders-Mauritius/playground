@@ -13,7 +13,7 @@ async function updateContributors() {
     const contributors = response.data.map(contributor => {
       console.log(contributor);
       return contributor.login; 
-    );
+    });
 
     let existingContributors = [];
 
