@@ -3,6 +3,7 @@ const fs = require('fs');
 
 const owner = 'Front-End-Coders-Mauritius';
 const repo = 'playground';
+const branch = 'main'; // Replace with the default branch of your repository
 
 const contributorsFile = 'contributors.json';
 
@@ -11,9 +12,11 @@ async function updateContributors() {
     const response = await axios.get(`https://api.github.com/repos/${owner}/${repo}/contributors`);
     const contributors = response.data.map(contributor => contributor.login);
 
-    const existingContributors = fs.existsSync(contributorsFile)
-      ? JSON.parse(fs.readFileSync(contributorsFile))
-      : [];
+    let existingContributors = [];
+
+    if (fs.existsSync(contributorsFile)) {
+      existingContributors = JSON.parse(fs.readFileSync(contributorsFile));
+    }
 
     const updatedContributors = [...new Set(existingContributors.concat(contributors))];
 
