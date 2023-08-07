@@ -10,22 +10,11 @@ const contributorsFile = 'contributors.json';
 async function updateContributors() {
   try {
     const response = await axios.get(`https://api.github.com/repos/${owner}/${repo}/contributors`);
-    const contributors = response.data.map(contributor => {
-      return {
-        username: contributor.login,
-        contributions: contributor.contributions
-      }
-    });
+    const contributors = response.data.map(contributor => contributor.login);
 
-    let existingContributors = [];
+    const updatedContributors = [...new Set(contributors)];
 
-    if (fs.existsSync(contributorsFile)) {
-      existingContributors = JSON.parse(fs.readFileSync(contributorsFile));
-    }
-
-    const updatedContributors = [...new Set(existingContributors.concat(contributors))];
-
-    if (JSON.stringify(existingContributors) !== JSON.stringify(updatedContributors)) {
+    if (JSON.stringify(updatedContributors) !== JSON.stringify(getExistingContributors())) {
       fs.writeFileSync(contributorsFile, JSON.stringify(updatedContributors, null, 2));
       console.log('Contributors file updated.');
 
@@ -52,6 +41,13 @@ async function updateContributors() {
   } catch (error) {
     console.error('Error updating contributors:', error);
   }
+}
+
+function getExistingContributors() {
+  if (fs.existsSync(contributorsFile)) {
+    return JSON.parse(fs.readFileSync(contributorsFile));
+  }
+  return [];
 }
 
 updateContributors();
